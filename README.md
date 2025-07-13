@@ -37,14 +37,14 @@ A modern, real-time golf tournament scoreboard built with React, FastAPI, and Po
    sudo docker compose up --build -d
    ```
 
-3. **Access the application**
+3. **Access the application in Local Development**
    - Frontend: http://localhost:3000
    - Backend API: http://localhost:8000
    - API Documentation: http://localhost:8000/docs
 
 ### Default Login Credentials
 
-All teams use the password: `password123`
+Review generating new passwords to establish default password. All credientials created by administrator.
 
 - Team Alpha: John Smith, Jane Doe
 - Team Beta: Mike Johnson, Sarah Wilson
@@ -77,6 +77,7 @@ INSERT INTO teams (name, password_hash, players) VALUES
 
 ### Generating New Passwords
 
+Generate hash and update `database/01-init.sql` with hash
 ```bash
 python3 -c "import bcrypt; print(bcrypt.hashpw('new_password'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8'))"
 ```

@@ -98,65 +98,8 @@ const Leaderboard: React.FC = () => {
     )
   }
 
-    return (
+  return (
     <div className="space-y-6">
-      {/* Leaderboard test button */}
-      <button 
-        onClick={() => {
-          console.log('Leaderboard test click!')
-          alert('Leaderboard test works!')
-        }}
-        style={{ 
-          padding: '10px',
-          backgroundColor: 'orange',
-          color: 'white',
-          border: 'none',
-          borderRadius: '5px',
-          marginBottom: '10px'
-        }}
-      >
-        LEADERBOARD TEST
-      </button>
-      
-      {/* Debug test button */}
-      <div className="bg-yellow-100 border border-yellow-300 rounded-lg p-4">
-        <button
-          onClick={() => alert('Basic button works!')}
-          style={{ padding: '20px', backgroundColor: 'red', color: 'white', border: 'none' }}
-        >
-          BASIC TEST
-        </button>
-        <br />
-        <button
-          {...useMobileClick(() => {
-            console.log('Test button clicked!')
-            alert('Test button clicked!')
-          })}
-          className="bg-yellow-500 text-white px-4 py-2 rounded"
-          style={{ 
-            touchAction: 'manipulation',
-            userSelect: 'none',
-            WebkitUserSelect: 'none',
-            WebkitTouchCallout: 'none'
-          }}
-        >
-          Test Mobile Click
-        </button>
-        <p className="text-sm text-yellow-700 mt-2">
-          Tap this button to test if mobile touch events are working
-        </p>
-        <button
-          onClick={() => {
-            console.log('Simple button clicked!')
-            alert('Simple button clicked!')
-          }}
-          className="bg-blue-500 text-white px-4 py-2 rounded ml-2"
-        >
-          Simple Button Test
-        </button>
- 
-      </div>
-
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Leaderboard</h1>
@@ -188,30 +131,30 @@ const Leaderboard: React.FC = () => {
             leaderboard.map((team, index) => (
               <div key={team.id} className="px-6 py-4 hover:bg-gray-50 transition-colors">
                 <div className="flex items-center justify-between">
-                                      <div className="flex items-center space-x-4">
-                      <div className="flex items-center justify-center w-8 h-8">
-                        {getPositionIcon(index)}
-                      </div>
-                      <div>
-                        <h3 
-                          className="text-lg font-semibold text-gray-900 cursor-pointer hover:text-primary-600"
-                          {...createTeamClickHandlers(team)}
-                        >
-                          {team.name}
-                        </h3>
-                        <p className="text-sm text-gray-500">
-                          {team.players ? JSON.parse(team.players).join(', ') : 'No players'}
-                        </p>
-                      </div>
+                  <div className="flex items-center space-x-4">
+                    <div className="flex items-center justify-center w-8 h-8">
+                      {getPositionIcon(index)}
                     </div>
-                    <div className="text-right">
-                      <div className="text-2xl font-bold text-gray-900">
-                        {team.par_display}
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        {team.total_score} strokes
-                      </div>
+                    <div>
+                      <h3 
+                        className="text-lg font-semibold text-gray-900 cursor-pointer hover:text-primary-600"
+                        {...createTeamClickHandlers(team)}
+                      >
+                        {team.name}
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        {team.players ? JSON.parse(team.players).join(', ') : 'No players'}
+                      </p>
                     </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-2xl font-bold text-gray-900">
+                      {team.par_display}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      {team.total_score} strokes
+                    </div>
+                  </div>
                 </div>
                 
                 {/* Course info */}

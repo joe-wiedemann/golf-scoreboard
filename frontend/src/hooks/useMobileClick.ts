@@ -2,7 +2,6 @@ import { useCallback } from 'react'
 
 export const useMobileClick = (callback: () => void) => {
   const handleClick = useCallback((e: React.MouseEvent | React.TouchEvent) => {
-    console.log('MobileClick: onClick fired', e.type)
     // Don't prevent default - let the browser handle it naturally
     callback()
   }, [callback])

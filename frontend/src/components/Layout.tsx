@@ -124,23 +124,6 @@ const Layout: React.FC = () => {
       <div className="lg:pl-64">
         <main className="py-6">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Layout test button */}
-            <button 
-              onClick={() => {
-                console.log('Layout test click!')
-                alert('Layout test works!')
-              }}
-              style={{ 
-                padding: '10px',
-                backgroundColor: 'purple',
-                color: 'white',
-                border: 'none',
-                borderRadius: '5px',
-                marginBottom: '10px'
-              }}
-            >
-              LAYOUT TEST
-            </button>
             <Outlet />
           </div>
         </main>

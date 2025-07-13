@@ -11,34 +11,11 @@ import ProtectedRoute from './components/ProtectedRoute'
 function App() {
   console.log('App component rendering')
   
-  // Add a simple test to see if any clicks work
-  const handleTestClick = () => {
-    console.log('App test click!')
-    alert('App test click works!')
-  }
-  
   return (
     <AuthProvider>
       <ScoreProvider>
         <Router>
           <div className="min-h-screen bg-gray-50">
-            {/* Test button at app level */}
-            <button 
-              onClick={handleTestClick}
-              style={{ 
-                position: 'fixed', 
-                top: '10px', 
-                right: '10px', 
-                zIndex: 9999,
-                padding: '10px',
-                backgroundColor: 'green',
-                color: 'white',
-                border: 'none',
-                borderRadius: '5px'
-              }}
-            >
-              APP TEST
-            </button>
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/" element={

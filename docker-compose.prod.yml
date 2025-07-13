@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # Frontend - React with Vite (production build)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    environment:
+      - VITE_API_URL=https://${DOMAIN}/api
+    networks:
+      - golfscoreboard
+    depends_on:
+      - backend
+
+  # Backend - FastAPI
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      - SECRET_KEY=${SECRET_KEY}
+      - CORS_ORIGINS=https://${DOMAIN}
+    depends_on:
+      - db
+    networks:
+      - golfscoreboard
+
+  # Database - PostgreSQL
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - golfscoreboard
+
+  # Nginx - Reverse Proxy with SSL
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.prod.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - golfscoreboard
+
+volumes:
+  postgres_data:
+
+networks:
+  golfscoreboard:
+    driver: bridge 

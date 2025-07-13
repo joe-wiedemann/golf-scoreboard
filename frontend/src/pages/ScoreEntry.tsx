@@ -150,7 +150,10 @@ const ScoreEntry: React.FC = () => {
                   <button
                     key={hole}
                     type="button"
-                    {...useMobileClick(() => setSelectedHole(hole))}
+                    {...useMobileClick(() => {
+                      console.log('Hole selected:', hole)
+                      setSelectedHole(hole)
+                    })}
                     className={`p-3 rounded-lg border-2 font-semibold transition-colors relative ${
                       selectedHole === hole
                         ? 'border-primary-500 bg-primary-50 text-primary-700'

@@ -53,6 +53,7 @@ const Leaderboard: React.FC = () => {
   }
 
   const handleTeamClick = async (team: TeamScore) => {
+    console.log('handleTeamClick called for team:', team.name)
     setIsLoadingScores(true)
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/courses/team/${team.id}/scorecard`)
@@ -99,6 +100,22 @@ const Leaderboard: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* Debug test button */}
+      <div className="bg-yellow-100 border border-yellow-300 rounded-lg p-4">
+        <button
+          {...useMobileClick(() => {
+            console.log('Test button clicked!')
+            alert('Test button clicked!')
+          })}
+          className="bg-yellow-500 text-white px-4 py-2 rounded"
+        >
+          Test Mobile Click
+        </button>
+        <p className="text-sm text-yellow-700 mt-2">
+          Tap this button to test if mobile touch events are working
+        </p>
+      </div>
+
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Leaderboard</h1>

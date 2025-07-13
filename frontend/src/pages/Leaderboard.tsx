@@ -112,6 +112,12 @@ const Leaderboard: React.FC = () => {
             alert('Test button touched via onTouchEnd!')
           }}
           className="bg-yellow-500 text-white px-4 py-2 rounded"
+          style={{ 
+            touchAction: 'manipulation',
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
+            WebkitTouchCallout: 'none'
+          }}
         >
           Test Mobile Click
         </button>
@@ -131,6 +137,24 @@ const Leaderboard: React.FC = () => {
         >
           Test Touch Events
         </button>
+        <div
+          onTouchStart={() => {
+            console.log('Div touch start!')
+            alert('Div touch start!')
+          }}
+          onTouchEnd={() => {
+            console.log('Div touch end!')
+            alert('Div touch end!')
+          }}
+          className="bg-red-500 text-white px-4 py-2 rounded ml-2 inline-block"
+          style={{ 
+            touchAction: 'manipulation',
+            userSelect: 'none',
+            WebkitUserSelect: 'none'
+          }}
+        >
+          Test Div Touch
+        </div>
       </div>
 
       <div className="flex items-center justify-between">

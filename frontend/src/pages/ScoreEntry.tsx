@@ -93,35 +93,38 @@ const ScoreEntry: React.FC = () => {
     setIsSubmitting(true)
     setSubmitStatus('idle')
 
-    try {
-      const success = await submitScore(selectedHole, scoreNum)
-      
-      if (success) {
-        setSubmitStatus('success')
-        setScore('')
-        // Refresh existing scores
-        const token = localStorage.getItem('token')
-        try {
-          const response = await axios.get(`${import.meta.env.VITE_API_URL}/scores/team/${team?.id}`, {
-            headers: { Authorization: `Bearer ${token}` }
-          })
-          setExistingScores(response.data.scores)
-        } catch (error) {
-          console.error('Failed to refresh scores:', error)
+    // Safari-specific: Use setTimeout to break out of the form submission context
+    setTimeout(async () => {
+      try {
+        const success = await submitScore(selectedHole, scoreNum)
+        
+        if (success) {
+          setSubmitStatus('success')
+          setScore('')
+          // Refresh existing scores
+          const token = localStorage.getItem('token')
+          try {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/scores/team/${team?.id}`, {
+              headers: { Authorization: `Bearer ${token}` }
+            })
+            setExistingScores(response.data.scores)
+          } catch (error) {
+            console.error('Failed to refresh scores:', error)
+          }
+          // Auto-advance to next hole if not on last hole
+          if (selectedHole < 18) {
+            setSelectedHole(selectedHole + 1)
+          }
+        } else {
+          setSubmitStatus('error')
         }
-        // Auto-advance to next hole if not on last hole
-        if (selectedHole < 18) {
-          setSelectedHole(selectedHole + 1)
-        }
-      } else {
+      } catch (error) {
+        console.error('Score submission error:', error)
         setSubmitStatus('error')
+      } finally {
+        setIsSubmitting(false)
       }
-    } catch (error) {
-      console.error('Score submission error:', error)
-      setSubmitStatus('error')
-    } finally {
-      setIsSubmitting(false)
-    }
+    }, 0)
   }
 
   const resetForm = () => {
@@ -142,7 +145,13 @@ const ScoreEntry: React.FC = () => {
           <p className="text-sm text-gray-500">Select a hole and enter your score</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6" style={{ WebkitUserSelect: 'none', userSelect: 'none' }}>
+        <form 
+          onSubmit={handleSubmit} 
+          className="space-y-6" 
+          style={{ WebkitUserSelect: 'none', userSelect: 'none' }}
+          autoComplete="off"
+          noValidate
+        >
           {/* Hole Selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-3">
@@ -249,6 +258,11 @@ const ScoreEntry: React.FC = () => {
               type="submit"
               disabled={isSubmitting || !score}
               className="btn btn-primary flex-1 flex items-center justify-center"
+              style={{ 
+                WebkitAppearance: 'none',
+                WebkitTouchCallout: 'none',
+                WebkitUserSelect: 'none'
+              }}
             >
               {isSubmitting ? (
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>

@@ -98,9 +98,27 @@ const Leaderboard: React.FC = () => {
     )
   }
 
-  return (
+    return (
     <div className="space-y-6">
-            {/* Debug test button */}
+      {/* Leaderboard test button */}
+      <button 
+        onClick={() => {
+          console.log('Leaderboard test click!')
+          alert('Leaderboard test works!')
+        }}
+        style={{ 
+          padding: '10px',
+          backgroundColor: 'orange',
+          color: 'white',
+          border: 'none',
+          borderRadius: '5px',
+          marginBottom: '10px'
+        }}
+      >
+        LEADERBOARD TEST
+      </button>
+      
+      {/* Debug test button */}
       <div className="bg-yellow-100 border border-yellow-300 rounded-lg p-4">
         <button
           onClick={() => alert('Basic button works!')}

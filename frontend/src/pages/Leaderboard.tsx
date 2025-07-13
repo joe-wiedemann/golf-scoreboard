@@ -2,6 +2,14 @@ import React, { useState } from 'react'
 import { useScore } from '../contexts/ScoreContext'
 import { Trophy, Medal, RefreshCw, X } from 'lucide-react'
 import axios from 'axios'
+import { useMobileClick } from '../hooks/useMobileClick'
+
+// Add type declaration for Vite env
+declare global {
+  interface ImportMeta {
+    readonly env: Record<string, string>
+  }
+}
 
 interface TeamScore {
   id: number
@@ -61,6 +69,8 @@ const Leaderboard: React.FC = () => {
     setSelectedTeam(null)
     setTeamScores([])
   }
+
+  const createTeamClickHandlers = (team: TeamScore) => useMobileClick(() => handleTeamClick(team))
 
   if (isLoading && leaderboard.length === 0) {
     return (
@@ -127,7 +137,7 @@ const Leaderboard: React.FC = () => {
                       <div>
                         <h3 
                           className="text-lg font-semibold text-gray-900 cursor-pointer hover:text-primary-600"
-                          onClick={() => handleTeamClick(team)}
+                          {...createTeamClickHandlers(team)}
                         >
                           {team.name}
                         </h3>
@@ -193,7 +203,7 @@ const Leaderboard: React.FC = () => {
                 {selectedTeam.name} - Scorecard
               </h2>
               <button
-                onClick={closeScorecard}
+                {...useMobileClick(closeScorecard)}
                 className="text-gray-400 hover:text-gray-600"
               >
                 <X className="h-6 w-6" />

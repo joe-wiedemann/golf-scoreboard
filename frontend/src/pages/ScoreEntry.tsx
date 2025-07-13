@@ -3,6 +3,7 @@ import { useScore } from '../contexts/ScoreContext'
 import { useAuth } from '../contexts/AuthContext'
 import { Check, X, Trophy } from 'lucide-react'
 import axios from 'axios'
+import { useMobileClick } from '../hooks/useMobileClick'
 
 interface HoleScore {
   hole_number: number
@@ -149,7 +150,7 @@ const ScoreEntry: React.FC = () => {
                   <button
                     key={hole}
                     type="button"
-                    onClick={() => setSelectedHole(hole)}
+                    {...useMobileClick(() => setSelectedHole(hole))}
                     className={`p-3 rounded-lg border-2 font-semibold transition-colors relative ${
                       selectedHole === hole
                         ? 'border-primary-500 bg-primary-50 text-primary-700'
@@ -252,7 +253,7 @@ const ScoreEntry: React.FC = () => {
             
             <button
               type="button"
-              onClick={resetForm}
+              {...useMobileClick(resetForm)}
               className="btn btn-secondary"
             >
               Reset

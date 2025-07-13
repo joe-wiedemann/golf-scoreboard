@@ -7,7 +7,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.prod
     environment:
-      - VITE_API_URL=http://backend:8000
+      - VITE_API_URL=http://24.144.67.202:8000
     networks:
       - golfscoreboard
     depends_on:

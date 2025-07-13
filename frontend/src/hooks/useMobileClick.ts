@@ -10,8 +10,7 @@ export const useMobileClick = (callback: () => void) => {
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     console.log('MobileClick: onTouchStart fired')
-    e.preventDefault()
-    e.stopPropagation()
+    // Don't prevent default on touch start to allow proper touch handling
   }, [])
 
   const handleTouchEnd = useCallback((e: React.TouchEvent) => {
@@ -21,9 +20,10 @@ export const useMobileClick = (callback: () => void) => {
     callback()
   }, [callback])
 
+  // For mobile, we'll use both onClick and onTouchEnd
+  // onClick works on most mobile browsers, onTouchEnd is backup
   return {
     onClick: handleClick,
-    onTouchStart: handleTouchStart,
     onTouchEnd: handleTouchEnd,
   }
 } 

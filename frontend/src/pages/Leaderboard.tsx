@@ -103,10 +103,14 @@ const Leaderboard: React.FC = () => {
       {/* Debug test button */}
       <div className="bg-yellow-100 border border-yellow-300 rounded-lg p-4">
         <button
-          {...useMobileClick(() => {
-            console.log('Test button clicked!')
-            alert('Test button clicked!')
-          })}
+          onClick={() => {
+            console.log('Test button clicked via onClick!')
+            alert('Test button clicked via onClick!')
+          }}
+          onTouchEnd={() => {
+            console.log('Test button touched via onTouchEnd!')
+            alert('Test button touched via onTouchEnd!')
+          }}
           className="bg-yellow-500 text-white px-4 py-2 rounded"
         >
           Test Mobile Click
@@ -114,6 +118,19 @@ const Leaderboard: React.FC = () => {
         <p className="text-sm text-yellow-700 mt-2">
           Tap this button to test if mobile touch events are working
         </p>
+        <button
+          onTouchStart={() => {
+            console.log('Test button touch start!')
+            alert('Touch start detected!')
+          }}
+          onTouchEnd={() => {
+            console.log('Test button touch end!')
+            alert('Touch end detected!')
+          }}
+          className="bg-blue-500 text-white px-4 py-2 rounded ml-2"
+        >
+          Test Touch Events
+        </button>
       </div>
 
       <div className="flex items-center justify-between">

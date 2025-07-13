@@ -73,7 +73,10 @@ const Leaderboard: React.FC = () => {
     setTeamScores([])
   }
 
-  const createTeamClickHandlers = (team: TeamScore) => useMobileClick(() => handleTeamClick(team))
+  // Create a click handler function that can be used for all teams
+  const handleTeamClickWrapper = (team: TeamScore) => {
+    return () => handleTeamClick(team)
+  }
 
   if (isLoading && leaderboard.length === 0) {
     return (
@@ -140,7 +143,7 @@ const Leaderboard: React.FC = () => {
                     <div>
                       <h3 
                         className="text-lg font-semibold text-gray-900 cursor-pointer hover:text-primary-600"
-                        {...createTeamClickHandlers(team)}
+                        {...useMobileClick(handleTeamClickWrapper(team))}
                       >
                         {team.name}
                       </h3>
@@ -207,7 +210,7 @@ const Leaderboard: React.FC = () => {
                 {selectedTeam.name} - Scorecard
               </h2>
               <button
-                {...useMobileClick(closeScorecard)}
+                onClick={closeScorecard}
                 className="text-gray-400 hover:text-gray-600"
               >
                 <X className="h-6 w-6" />

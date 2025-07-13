@@ -82,6 +82,7 @@ const ScoreEntry: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    e.stopPropagation()
     
     const scoreNum = parseInt(score)
     if (isNaN(scoreNum) || scoreNum < 1) {
@@ -92,30 +93,35 @@ const ScoreEntry: React.FC = () => {
     setIsSubmitting(true)
     setSubmitStatus('idle')
 
-    const success = await submitScore(selectedHole, scoreNum)
-    
-    if (success) {
-      setSubmitStatus('success')
-      setScore('')
-      // Refresh existing scores
-      const token = localStorage.getItem('token')
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/scores/team/${team?.id}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        })
-        setExistingScores(response.data.scores)
-      } catch (error) {
-        console.error('Failed to refresh scores:', error)
+    try {
+      const success = await submitScore(selectedHole, scoreNum)
+      
+      if (success) {
+        setSubmitStatus('success')
+        setScore('')
+        // Refresh existing scores
+        const token = localStorage.getItem('token')
+        try {
+          const response = await axios.get(`${import.meta.env.VITE_API_URL}/scores/team/${team?.id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          })
+          setExistingScores(response.data.scores)
+        } catch (error) {
+          console.error('Failed to refresh scores:', error)
+        }
+        // Auto-advance to next hole if not on last hole
+        if (selectedHole < 18) {
+          setSelectedHole(selectedHole + 1)
+        }
+      } else {
+        setSubmitStatus('error')
       }
-      // Auto-advance to next hole if not on last hole
-      if (selectedHole < 18) {
-        setSelectedHole(selectedHole + 1)
-      }
-    } else {
+    } catch (error) {
+      console.error('Score submission error:', error)
       setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
     }
-    
-    setIsSubmitting(false)
   }
 
   const resetForm = () => {
@@ -136,7 +142,7 @@ const ScoreEntry: React.FC = () => {
           <p className="text-sm text-gray-500">Select a hole and enter your score</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6" style={{ WebkitUserSelect: 'none', userSelect: 'none' }}>
           {/* Hole Selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-3">

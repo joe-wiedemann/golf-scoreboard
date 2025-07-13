@@ -57,8 +57,10 @@ const Leaderboard: React.FC = () => {
     setIsLoadingScores(true)
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/courses/team/${team.id}/scorecard`)
+      console.log('Scorecard response:', response.data)
       setTeamScores(response.data.scorecard)
       setSelectedTeam(team)
+      console.log('Modal should now be visible, selectedTeam:', team.name)
     } catch (error) {
       console.error('Failed to fetch team scores:', error)
     } finally {
@@ -197,7 +199,8 @@ const Leaderboard: React.FC = () => {
 
       {/* Team Scorecard Modal */}
       {selectedTeam && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" style={{ zIndex: 9999 }}>
+          {(() => { console.log('Modal is rendering for team:', selectedTeam.name); return null; })()}
           <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between p-6 border-b">
               <h2 className="text-xl font-semibold text-gray-900">

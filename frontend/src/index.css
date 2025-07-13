@@ -12,11 +12,6 @@
   body {
     @apply bg-gray-50 text-gray-900;
     -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
   }
 
   /* Ensure buttons and interactive elements work on mobile */

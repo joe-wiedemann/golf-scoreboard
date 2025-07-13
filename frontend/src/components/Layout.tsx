@@ -22,48 +22,46 @@ const Layout: React.FC = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Mobile menu */}
       <div className="lg:hidden">
-        <div className="fixed inset-0 z-40">
-          {isMenuOpen && (
-            <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={() => setIsMenuOpen(false)} />
-          )}
-          
-          <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-            <div className="flex items-center justify-between p-4 border-b">
-              <h2 className="text-lg font-semibold text-gray-900">Golf Scoreboard</h2>
-              <button {...useMobileClick(() => setIsMenuOpen(false))}>
-                <X className="h-6 w-6 text-gray-500" />
-              </button>
-            </div>
-            <nav className="mt-4">
-              {navigation.map((item) => {
-                const Icon = item.icon
-                return (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className={`flex items-center px-4 py-3 text-sm font-medium ${
-                      location.pathname === item.href
-                        ? 'bg-primary-50 text-primary-700 border-r-2 border-primary-700'
-                        : 'text-gray-600 hover:bg-gray-50'
-                    }`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    <Icon className="mr-3 h-5 w-5" />
-                    {item.name}
-                  </Link>
-                )
-              })}
-            </nav>
-            <div className="absolute bottom-0 w-full p-4 border-t">
-              <div className="text-sm text-gray-500 mb-2">Team: {team?.name}</div>
-                          <button
+        {isMenuOpen && (
+          <div className="fixed inset-0 z-40 bg-gray-600 bg-opacity-75" onClick={() => setIsMenuOpen(false)} />
+        )}
+        
+        <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+          <div className="flex items-center justify-between p-4 border-b">
+            <h2 className="text-lg font-semibold text-gray-900">Golf Scoreboard</h2>
+            <button {...useMobileClick(() => setIsMenuOpen(false))}>
+              <X className="h-6 w-6 text-gray-500" />
+            </button>
+          </div>
+          <nav className="mt-4">
+            {navigation.map((item) => {
+              const Icon = item.icon
+              return (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`flex items-center px-4 py-3 text-sm font-medium ${
+                    location.pathname === item.href
+                      ? 'bg-primary-50 text-primary-700 border-r-2 border-primary-700'
+                      : 'text-gray-600 hover:bg-gray-50'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Icon className="mr-3 h-5 w-5" />
+                  {item.name}
+                </Link>
+              )
+            })}
+          </nav>
+          <div className="absolute bottom-0 w-full p-4 border-t">
+            <div className="text-sm text-gray-500 mb-2">Team: {team?.name}</div>
+            <button
               {...useMobileClick(handleLogout)}
               className="flex items-center w-full px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg"
             >
-                <LogOut className="mr-3 h-5 w-5" />
-                Logout
-              </button>
-            </div>
+              <LogOut className="mr-3 h-5 w-5" />
+              Logout
+            </button>
           </div>
         </div>
       </div>

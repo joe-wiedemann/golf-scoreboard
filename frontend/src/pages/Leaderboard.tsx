@@ -100,8 +100,15 @@ const Leaderboard: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Debug test button */}
+            {/* Debug test button */}
       <div className="bg-yellow-100 border border-yellow-300 rounded-lg p-4">
+        <button
+          onClick={() => alert('Basic button works!')}
+          style={{ padding: '20px', backgroundColor: 'red', color: 'white', border: 'none' }}
+        >
+          BASIC TEST
+        </button>
+        <br />
         <button
           {...useMobileClick(() => {
             console.log('Test button clicked!')
@@ -129,7 +136,7 @@ const Leaderboard: React.FC = () => {
         >
           Simple Button Test
         </button>
-
+ 
       </div>
 
       <div className="flex items-center justify-between">

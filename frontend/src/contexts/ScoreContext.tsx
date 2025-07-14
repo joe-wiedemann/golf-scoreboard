@@ -1,6 +1,13 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import axios from 'axios'
 
+// Add type declaration for Vite env
+declare global {
+  interface ImportMeta {
+    readonly env: Record<string, string>
+  }
+}
+
 interface TeamScore {
   id: number
   name: string
@@ -55,20 +62,27 @@ export const ScoreProvider: React.FC<ScoreProviderProps> = ({ children }) => {
   const submitScore = async (holeNumber: number, score: number): Promise<boolean> => {
     try {
       const token = localStorage.getItem('token')
-      await axios.post(
+      console.log('Submitting score:', { holeNumber, score, token: token ? 'present' : 'missing' })
+      
+      const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/scores`,
         {
           hole_number: holeNumber,
           score: score
         },
         {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { 
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
         }
       )
+      console.log('Score submission response:', response.status)
       await refreshLeaderboard()
       return true
     } catch (err) {
       console.error('Score submission error:', err)
+      console.error('Error details:', err.response?.status, err.response?.data)
       return false
     }
   }

@@ -9,7 +9,13 @@ export default defineConfig({
     port: 3000,
     watch: {
       usePolling: true
-    }
+    },
+    allowedHosts: [
+      'bachelorgolf.golf',
+      'www.bachelorgolf.golf',
+      'localhost',
+      '127.0.0.1'
+    ]
   },
   build: {
     outDir: 'dist',

@@ -26,9 +26,6 @@ CREATE TABLE IF NOT EXISTS scores (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create sample teams for testing
--- Passwords are hashed versions of "password123"
--- In production, use proper password hashing
 
 INSERT INTO teams (name, password_hash, players) VALUES
 ('Team Alpha', '$2b$12$IuhIxoq1JFMmgvM9VCSa9.yxprOx652tNglZQHZagsXgaElRR/PB.', '["John Smith", "Jane Doe"]'),
@@ -43,9 +40,3 @@ INSERT INTO courses (name, hole_pars, total_par) VALUES (
     '{"1": 4, "2": 4, "3": 5, "4": 3, "5": 4, "6": 3, "7": 4, "8": 4, "9": 4, "10": 4, "11": 3, "12": 5, "13": 3, "14": 4, "15": 4, "16": 4, "17": 5, "18": 5}',
     72
 );
-
--- Note: The password hash above is for "password123"
--- Teams can log in with:
--- Team Alpha / password123
--- Team Beta / password123
--- etc. 

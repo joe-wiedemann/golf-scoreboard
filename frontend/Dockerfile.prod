@@ -12,6 +12,10 @@ RUN npm ci
 # Copy source code
 COPY . .
 
+# Set default environment variables for build
+ARG VITE_API_URL
+ENV VITE_API_URL=${VITE_API_URL:-http://localhost:8000}
+
 # Build the application
 RUN npm run build
 

@@ -12,7 +12,7 @@ services:
       - ./frontend:/app
       - /app/node_modules
     environment:
-      - VITE_API_URL=http://bachelorgolf.golf:8000
+      - VITE_API_URL=https://bachelorgolf.golf
     depends_on:
       - backend
     networks:
@@ -31,7 +31,7 @@ services:
       - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
       - SECRET_KEY=${SECRET_KEY}
       - CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
-      - CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000,http://bachelorgolf.golf,https://bachelorgolf.golf
+      - CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000,https://bachelorgolf.golf,https://www.bachelorgolf.golf
     depends_on:
       - db
     networks:
@@ -57,8 +57,10 @@ services:
     image: nginx:alpine
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
     depends_on:
       - frontend
       - backend

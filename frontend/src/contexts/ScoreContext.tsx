@@ -51,7 +51,7 @@ export const ScoreProvider: React.FC<ScoreProviderProps> = ({ children }) => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/courses/leaderboard`)
       setLeaderboard(response.data.leaderboard)
-    } catch (err) {
+    } catch (err: any) {
       setError('Failed to load leaderboard')
       console.error('Leaderboard fetch error:', err)
     } finally {
@@ -80,7 +80,7 @@ export const ScoreProvider: React.FC<ScoreProviderProps> = ({ children }) => {
       console.log('Score submission response:', response.status)
       await refreshLeaderboard()
       return true
-    } catch (err) {
+    } catch (err: any) {
       console.error('Score submission error:', err)
       console.error('Error details:', err.response?.status, err.response?.data)
       return false

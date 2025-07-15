@@ -65,7 +65,7 @@ export const ScoreProvider: React.FC<ScoreProviderProps> = ({ children }) => {
       console.log('Submitting score:', { holeNumber, score, token: token ? 'present' : 'missing' })
       
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/scores`,
+        `${import.meta.env.VITE_API_URL}/scores/`,
         {
           hole_number: holeNumber,
           score: score

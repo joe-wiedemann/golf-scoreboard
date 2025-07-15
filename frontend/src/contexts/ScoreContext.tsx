@@ -62,10 +62,11 @@ export const ScoreProvider: React.FC<ScoreProviderProps> = ({ children }) => {
   const submitScore = async (holeNumber: number, score: number): Promise<boolean> => {
     try {
       const token = localStorage.getItem('token')
-      console.log('Submitting score:', { holeNumber, score, token: token ? 'present' : 'missing' })
+      const apiUrl = `${import.meta.env.VITE_API_URL}/scores/`
+      console.log('Submitting score:', { holeNumber, score, token: token ? 'present' : 'missing', apiUrl })
       
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/scores/`,
+        apiUrl,
         {
           hole_number: holeNumber,
           score: score

@@ -62,8 +62,11 @@ export const ScoreProvider: React.FC<ScoreProviderProps> = ({ children }) => {
   const submitScore = async (holeNumber: number, score: number): Promise<boolean> => {
     try {
       const token = localStorage.getItem('token')
-      const apiUrl = `${import.meta.env.VITE_API_URL}/scores/`
+      // Try relative URL first, fallback to full URL
+      const apiUrl = window.location.protocol === 'https:' ? '/scores/' : `${import.meta.env.VITE_API_URL}/scores/`
       console.log('Submitting score:', { holeNumber, score, token: token ? 'present' : 'missing', apiUrl })
+      console.log('Environment VITE_API_URL:', import.meta.env.VITE_API_URL)
+      console.log('Window location protocol:', window.location.protocol)
       
       const response = await axios.post(
         apiUrl,

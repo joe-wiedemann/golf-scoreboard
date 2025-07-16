@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet, Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-import { Trophy, Plus, LogOut, Menu, X } from 'lucide-react'
+import { Trophy, Plus, BookOpen, LogOut, Menu, X } from 'lucide-react'
 import { useMobileClick } from '../hooks/useMobileClick'
 
 const Layout: React.FC = () => {
@@ -12,6 +12,7 @@ const Layout: React.FC = () => {
   const navigation = [
     { name: 'Leaderboard', href: '/', icon: Trophy },
     { name: 'Enter Score', href: '/score', icon: Plus },
+    { name: 'Rules', href: '/rules', icon: BookOpen },
   ]
 
   const handleLogout = () => {

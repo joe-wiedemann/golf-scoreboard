@@ -6,6 +6,7 @@ import Layout from './components/Layout'
 import Login from './pages/Login'
 import Leaderboard from './pages/Leaderboard'
 import ScoreEntry from './pages/ScoreEntry'
+import Rules from './pages/Rules'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
               }>
                 <Route index element={<Leaderboard />} />
                 <Route path="score" element={<ScoreEntry />} />
+                <Route path="rules" element={<Rules />} />
               </Route>
             </Routes>
           </div>

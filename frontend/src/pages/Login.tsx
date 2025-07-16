@@ -40,6 +40,9 @@ const Login: React.FC = () => {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Golf Scoreboard
           </h2>
+          <p className="mt-2 text-center text-lg font-medium text-gray-700">
+            July 16, 2025
+          </p>
           <p className="mt-2 text-center text-sm text-gray-600">
             Sign in to your team account
           </p>

@@ -150,7 +150,14 @@ const Leaderboard: React.FC = () => {
                         {team.name}
                       </h3>
                       <p className="text-sm text-gray-500">
-                        {team.players ? JSON.parse(team.players).join(', ') : 'No players'}
+                        {(() => {
+                          try {
+                            return team.players ? JSON.parse(team.players).join(', ') : 'No players'
+                          } catch (error) {
+                            console.error('Error parsing players JSON for team:', team.name, 'players:', team.players)
+                            return 'Players unavailable'
+                          }
+                        })()}
                       </p>
                     </div>
                   </div>

@@ -49,7 +49,9 @@ export const ScoreProvider: React.FC<ScoreProviderProps> = ({ children }) => {
     setIsLoading(true)
     setError(null)
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/courses/leaderboard`)
+      // Use relative URL for production, full URL for development
+      const apiUrl = window.location.protocol === 'https:' ? '/courses/leaderboard' : `${import.meta.env.VITE_API_URL}/courses/leaderboard`
+      const response = await axios.get(apiUrl)
       setLeaderboard(response.data.leaderboard)
     } catch (err: any) {
       setError('Failed to load leaderboard')

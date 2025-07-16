@@ -56,7 +56,9 @@ const Leaderboard: React.FC = () => {
     console.log('handleTeamClick called for team:', team.name)
     setIsLoadingScores(true)
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/courses/team/${team.id}/scorecard`)
+      // Use relative URL for production, full URL for development
+      const apiUrl = window.location.protocol === 'https:' ? `/courses/team/${team.id}/scorecard` : `${import.meta.env.VITE_API_URL}/courses/team/${team.id}/scorecard`
+      const response = await axios.get(apiUrl)
       console.log('Scorecard response:', response.data)
       setTeamScores(response.data.scorecard)
       setSelectedTeam(team)

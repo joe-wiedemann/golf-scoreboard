@@ -39,7 +39,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const storedToken = localStorage.getItem('token')
       if (storedToken) {
         try {
-          const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/me`, {
+          // Use relative URL for production, full URL for development
+          const apiUrl = window.location.protocol === 'https:' ? '/auth/me' : `${import.meta.env.VITE_API_URL}/auth/me`
+          const response = await axios.get(apiUrl, {
             headers: { Authorization: `Bearer ${storedToken}` }
           })
           setTeam(response.data.team)
@@ -58,7 +60,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (teamName: string, password: string): Promise<boolean> => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, {
+      // Use relative URL for production, full URL for development
+      const apiUrl = window.location.protocol === 'https:' ? '/auth/login' : `${import.meta.env.VITE_API_URL}/auth/login`
+      const response = await axios.post(apiUrl, {
         team_name: teamName,
         password: password
       })
